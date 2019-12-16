@@ -51,6 +51,11 @@ class bugController {
             return $this->send($view_to_show, 200);
         }
     }
+    
+    public function update(){
+        
+    }
+    
 }
 
 

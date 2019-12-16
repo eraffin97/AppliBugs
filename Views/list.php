@@ -71,6 +71,7 @@
                     <th>Intitulé</th>
                     <th>Description</th>
                     <th>Date</th>
+                    <th>Statut</th>
                 </tr>
                 </thead>
             </table>
@@ -81,10 +82,21 @@
 
                 <?php foreach ($bugs as $bug) { ?>
 
-                <tr>
-                    <td><a href="show/<?php echo $bug->getId() ?>"><?php echo $bug->getTitle(); ?></a></td>
+                <tr id="<?php echo $bug->getId()?>">
+                    <td>
+                        <a href="show/<?php echo $bug->getId() ?>"><?php echo $bug->getTitle(); ?></a>
+                    </td>
                     <td><?php echo $bug->getDescription();?></td>
                     <td><?php echo $bug->getCreatedAt()?></td>
+                    <td>
+                        <?php
+                        if ($bug->getClosed() == 1) {
+                            echo "<span>Résolu</span>";
+                        } else {
+                            echo "<a class='trigger' href='#'>Non résolu</a>";
+                        }
+                    ?>
+                    </td>
                 </tr>
                 <?php }
                 ?>
