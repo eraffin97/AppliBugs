@@ -52,10 +52,22 @@ class bugController {
         }
     }
     
-    public function update(){
-        
+    public function update($id){
+        $manager = new BugManager();
+        $bug = $manager->find($id);
+        if (isset($_POST['closed'])) {
+            $bug->setClosed($_POST['closed']);
+        }
+        $manager->update($bug);
+        http_response_code(200);
+        header('Content-type:application/json');
+        $response = ['success' => true,
+                     'id' => $bug->getId()
+        ];
+        return $reponse;
     }
     
+
 }
 
 

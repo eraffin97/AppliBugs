@@ -81,5 +81,42 @@ class BugManager extends Manager
         }
 
     }
+    
+    //methode PUT
+    public function update($bug) {
+        $dbh = $this->connectDb();
+        $sql = 'UPDATE titre=:titre, description=:description closed=:closed WHERE id=:id';
+        $sth = $dbh->prepare($sql);
+        $sth->execute(['titre'=>$bug->getTitle(),
+                       'description'=>$bug->getDescription(),
+                       'closed'=>$bug->getClosed(),
+                        'id'=>$bug->getId()]);
+    }
+    
+    public function findByStatut($statut) {
+        
+        $dbh = $this->connectDb();
+        
+        if ($statut == 0) {
+
+            $results = $dbh->query('SELECT * FROM `bugs` WHERE closed=0 ORDER BY `id`', PDO::FETCH_ASSOC);
+
+            $bugs = [];
+
+            // Parcours des résultats
+            foreach ($results as $result) {
+                $bug = new Bug();
+                $bug->setId($result["id"]);
+                $bug->setTitle($result["title"]);
+                $bug->setDescription($result["description"]);
+                $bug->setCreatedAt($result["createdAt"]);
+                $bug->setClosed($result["closed"]);
+
+                $bugs[] = $bug;
+            }
+
+            return $bugs;
+        }
+    }
 
 }

@@ -16,9 +16,9 @@ if($url[0] == 'bug') {
         return (new bugController())->show($url[2]);
     } if ($url[1] == 'add') {
         return (new bugController())->add();
-    } if ($url[1] == 'update') {
-        return (new bugController())->update();
-    }
+    } if ($url[1] == 'update' and !empty($url[2])) {
+        return (new bugController())->update($url[2]);
+    } 
 
     
     
