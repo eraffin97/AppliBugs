@@ -1,8 +1,7 @@
-
 <?php
-
-include_once('bug.php');
-include_once('manager.php');
+namespace BugApp\Models;
+use BugApp\Models\Bug;
+use BugApp\Models\Manager;
 
 class BugManager extends Manager
 {
@@ -11,11 +10,13 @@ class BugManager extends Manager
 
         $dbh = $this->connectDb();  
 
-            $sql = "INSERT INTO bugs (title, description) VALUES (:title, :description)";
+            $sql = "INSERT INTO bugs (title, description, ndd, ip) VALUES (:title, :description, :ndd, :ip)";
             $sth = $dbh->prepare($sql);
             $sth->execute([
                 "title" => $bug->getTitle(),
                 "description" => $bug->getDescription(),
+                "ndd" => $bug->getNdd(),
+                "ip" => $bug->getIp()
             ]);        
 
     }
@@ -26,16 +27,19 @@ class BugManager extends Manager
         $dbh = $this->connectDb();
 
         $sth = $dbh->prepare('SELECT * FROM bugs WHERE id = :id');
-        $sth->bindParam(':id', $id, PDO::PARAM_INT);
+        $sth->bindParam(':id', $id, \PDO::PARAM_INT);
         $sth->execute();
-        $result = $sth->fetch(PDO::FETCH_ASSOC);
+        $result = $sth->fetch(\PDO::FETCH_ASSOC);
 
         $bug = new Bug();
         $bug->setId($result["id"]);
         $bug->setTitle($result["title"]);
+        $bug->setNdd($result["ndd"]);
+        $bug->setIp($result["ip"]);
         $bug->setDescription($result["description"]);
         $bug->setCreatedAt($result["createdAt"]);
         $bug->setClosed($result["closed"]);
+        
         return $bug;
     }
 
@@ -45,7 +49,7 @@ class BugManager extends Manager
 
         $dbh = $this->connectDb();
 
-        $results = $dbh->query('SELECT * FROM `bugs` ORDER BY `id`', PDO::FETCH_ASSOC);
+        $results = $dbh->query('SELECT * FROM `bugs` ORDER BY `id`', \PDO::FETCH_ASSOC);
 
         $bugs = [];
 
@@ -57,7 +61,8 @@ class BugManager extends Manager
             $bug->setDescription($result["description"]);
             $bug->setCreatedAt($result["createdAt"]);
             $bug->setClosed($result["closed"]);
-            
+            $bug->setNdd($result["ndd"]);
+            $bug->setIp($result["ip"]);
             $bugs[] = $bug;
         }
 
@@ -71,7 +76,7 @@ class BugManager extends Manager
         if ($handle) {
             while (($buffer = fgets($handle, 4096)) !== false) {
                 list($id, $description) = explode(";", $buffer);
-                $bug = new Bug($id, $description);
+                $bug = new Bug($id, $description, $ndd, $ip);
                 $this->addBug($bug);
         }
         if (!feof($handle)) {
@@ -84,13 +89,16 @@ class BugManager extends Manager
     
     //methode PUT
     public function update($bug) {
+        //var_dump($bug);
         $dbh = $this->connectDb();
-        $sql = 'UPDATE titre=:titre, description=:description closed=:closed WHERE id=:id';
+        $sql = 'UPDATE `bugs` SET title=:title, description=:description, closed=:closed, ndd=:ndd, ip=:ip WHERE id=:id';
         $sth = $dbh->prepare($sql);
-        $sth->execute(['titre'=>$bug->getTitle(),
+        $sth->execute(['title'=>$bug->getTitle(),
                        'description'=>$bug->getDescription(),
                        'closed'=>$bug->getClosed(),
-                        'id'=>$bug->getId()]);
+                       'id'=>$bug->getId(),
+                       'ndd'=>$bug->getNdd(),
+                       'ip'=>$bug->getIp()]);
     }
     
     public function findByStatut($statut) {
@@ -99,7 +107,7 @@ class BugManager extends Manager
         
         if ($statut == 0) {
 
-            $results = $dbh->query('SELECT * FROM `bugs` WHERE closed=0 ORDER BY `id`', PDO::FETCH_ASSOC);
+            $results = $dbh->query('SELECT * FROM `bugs` WHERE closed=0 ORDER BY `id`', \PDO::FETCH_ASSOC);
 
             $bugs = [];
 
@@ -111,7 +119,8 @@ class BugManager extends Manager
                 $bug->setDescription($result["description"]);
                 $bug->setCreatedAt($result["createdAt"]);
                 $bug->setClosed($result["closed"]);
-
+                $bug->setNdd($result["ndd"]);
+                $bug->setIp($result["ip"]);
                 $bugs[] = $bug;
             }
 

@@ -1,19 +1,31 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-require_once('Models/bugManager.php');
+namespace BugApp\Controller;
+use BugApp\Models\Bug;
+use BugApp\Models\BugManager;
+use GuzzleHttp\Client;
 
 class bugController {
 
     public function liste() {
+
         $manager = new BugManager();
-        $bugs = $manager->findAll();
-        $list_view = $this->render('Views/list', ['bugs' => $bugs]);
-        return $this->send($list_view, 200);
+
+        $headers = apache_request_headers();
+        if (in_array("XMLHttpRequest", $headers)) {
+            if (isset($GET['checkbox'])) {
+                $bugs = $manager->findByStatut(0);
+            } else {
+                $bugs = $manager->findAll();
+            }
+            $list_view = $this->render('src/Views/list', ['bugs' => $bugs]);
+            return $this->send($list_view, 200);
+            
+        } else {
+            $bugs = $manager->findAll();
+            $list_view = $this->render('src/Views/list', ['bugs' => $bugs]);
+            return $this->send($list_view, 200);
+        }
     }
 
     public function render($view_to_show, $parameters) {
@@ -30,29 +42,32 @@ class bugController {
         echo $view_concerned;
     }
 
-    public function show($id){
+    public function show($id) {
         $manager = new BugManager();
         $bug = $manager->find($id);
-        $view_to_show = $this->render('Views/show', ['bug' => $bug]);
+        $view_to_show = $this->render('src/Views/show', ['bug' => $bug]);
         return $this->send($view_to_show, 200);
     }
 
-    public function add()
-    {
+    public function add() {
         if (isset($_POST["Enregistrer"])) {
             $manager = new BugManager();
             $bug = new Bug();
             $bug->setTitle($_POST['intitule']);
             $bug->setDescription($_POST['description']);
+            $bug->setNdd($_POST['ndd']);
+            $client = new Client();
+            $response = $client->request('GET', 'http://ip-api.com/json/'.$_POST['ndd']);
+            $bug->setIp((json_decode($response->getBody()))->query);
             $manager->add($bug);
             header('Location: liste');
         } else {
-            $view_to_show = $this->render('Views/add', []);
+            $view_to_show = $this->render('src/Views/add', []);
             return $this->send($view_to_show, 200);
         }
     }
-    
-    public function update($id){
+
+    public function update($id) {
         $manager = new BugManager();
         $bug = $manager->find($id);
         if (isset($_POST['closed'])) {
@@ -62,13 +77,9 @@ class bugController {
         http_response_code(200);
         header('Content-type:application/json');
         $response = ['success' => true,
-                     'id' => $bug->getId()
+            'id' => $bug->getId()
         ];
-        return $reponse;
+        echo json_encode($response);
     }
-    
 
 }
-
-
-

@@ -1,6 +1,6 @@
 <?php
-
-require('Controller/bugController.php');
+require 'vendor/autoload.php';
+use BugApp\Controller\BugController;
 
 $url = '';
 
@@ -20,6 +20,4 @@ if($url[0] == 'bug') {
         return (new bugController())->update($url[2]);
     } 
 
-    
-    
 }

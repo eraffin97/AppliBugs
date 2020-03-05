@@ -80,8 +80,8 @@
         <form method="post">
             <input type="text" name="intitule" placeholder="Intitulé"/>
             <input type="text" name="description" placeholder="Description"/>
+            <input type="text" name="ndd" placeholder="Nom de domaine"/>
             <input type="submit" value="Enregistrer" name="Enregistrer"/>
-
         </form>
             <a href="liste">Retour à la liste des bugs</a>
     </body>

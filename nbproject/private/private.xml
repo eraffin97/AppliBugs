@@ -3,17 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/src/Controller/BugController.php</file>
             <file>file:/C:/xampp/htdocs/dashboard/works/tp1/index.php</file>
-            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/Views/add.php</file>
+            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/src/Views/add.php</file>
             <file>file:/C:/xampp/htdocs/dashboard/works/tp1/params.php</file>
-            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/manager.php</file>
-            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/Models/bugManager.php</file>
-            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/Controller/bugController.php</file>
-            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/Views/show.php</file>
-            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/Models/bug.php</file>
-            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/Resources/ajax.js</file>
-            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/data.txt</file>
-            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/Views/list.php</file>
+            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/src/Views/404.php</file>
+            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/composer.lock</file>
+            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/src/Views/show.php</file>
+            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/src/Models/BugManager.php</file>
+            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/src/Models/Bug.php</file>
+            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/src/Models/Manager.php</file>
+            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/composer.json</file>
+            <file>file:/C:/xampp/htdocs/dashboard/works/tp1/src/Views/list.php</file>
         </group>
     </open-files>
 </project-private>

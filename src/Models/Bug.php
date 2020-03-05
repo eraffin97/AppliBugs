@@ -1,5 +1,7 @@
 <?php
 
+namespace BugApp\Models;
+
 class Bug {
     
     public $id;
@@ -7,6 +9,8 @@ class Bug {
     public $description;
     public $createdAt;
     public $closed;
+    public $ndd;
+    public $ip;
     
     function __construct() {
         // $this->createdAt = new \DateTime();
@@ -113,4 +117,25 @@ class Bug {
 
         return $this;
     }
+
+    public function setNdd($ndd)
+    {
+        $this->ndd = $ndd;
+        return $this;
+
+    }
+
+    public function getNdd() {
+        return $this->ndd;
+    }
+
+    public function setIp($ip) {
+        $this->ip = $ip;
+        return $this;
+    }
+
+    public function getIp() {
+        return $this->ip;
+    }
+
 }

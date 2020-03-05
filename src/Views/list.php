@@ -71,6 +71,8 @@
                         <tr>
                             <th>Intitulé</th>
                             <th>Description</th>
+                            <th>Nom de domaine</th>
+                            <th>Adresse IP</th>
                             <th>Date</th>
                             <th>Statut</th>
                         </tr>
@@ -79,28 +81,30 @@
             </div>
             <div class="tbl-content">
                 <table cellpadding="0" cellspacing="0" border="0">
-                        <tbody>
+                    <tbody id="table-bugs">
                         
-                <?php foreach ($bugs as $bug) { ?>
-                        
-                        <tr id="<?php echo $bug->getId()?>">
-                            <td>
-                                <a class="trigger2" href="show/<?php echo $bug->getId() ?>"><?php echo $bug->getTitle(); ?></a>
-                            </td>
-                            <td><?php echo $bug->getDescription()?></td>
-                            <td><?php echo $bug->getCreatedAt()?></td>
-                            <td>
-                                <?php
-                                if ($bug->getClosed() == 1) {
-                                    echo "<span>Résolu</span>";
-                                } else {
-                                    echo "<a class='trigger' href='#'>Non résolu</a>";
-                                }
-                                ?>
-                            </td>
-                        </tr>
-                <?php }
-                ?>
+                    <?php foreach ($bugs as $bug) { ?>
+
+                            <tr id="<?php echo $bug->getId()?>">
+                                <td>
+                                    <a class="trigger2" href="show/<?php echo $bug->getId() ?>"><?php echo $bug->getTitle(); ?></a>
+                                </td>
+                                <td><?php echo $bug->getDescription()?></td>
+                                <td><?php echo $bug->getCreatedAt()?></td>
+                                <td><?php echo $bug->getNdd()?></td>
+                                <td><?php echo $bug->getIp()?></td>
+                                <td class="statut">
+                                    <?php
+                                    if ($bug->getClosed() == 1) {
+                                        echo "<span>Résolu</span>";
+                                    } else {
+                                        echo "<a class='trigger' href='#'><span>Non résolu</span></a>";
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php }
+                    ?>
                     </tbody>
                 </table>
             </div>
@@ -108,6 +112,28 @@
             <input type="checkbox" name="checkbox" id="checkbox"><label>Bugs non résolus</label>
            
         </section>
-        <script type="text/javascript" src="../Resources/ajax.js"></script>
+        <script type="text/javascript" src="../src/Resources/ajax.js"></script>
     </body>
 </html>
+
+<script>
+    
+    document.getElementById('checkbox').addEventListener('change', (event) => {
+        var tableContent=(document.getElementById('table-bugs')).querySelectorAll('td.statut');
+        if (event.target.checked) {
+            
+            tableContent.forEach(function(elem){
+                if (elem.querySelector('span').innerHTML==='Résolu'){
+                    elem.parentNode.style.display='none';
+                }
+            });
+        } else {
+            tableContent.forEach(function(elem){
+                if (elem.querySelector('span').innerHTML==='Résolu'){
+                    elem.parentNode.style.display='';
+                }
+            });
+        }
+    })
+    
+</script>

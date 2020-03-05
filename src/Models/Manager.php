@@ -6,9 +6,9 @@
  * and open the template in the editor.
  */
 
-class Manager {
-    
+namespace BugApp\Models;
 
+class Manager {
     
     function connectDB() {
         include 'params.php';
