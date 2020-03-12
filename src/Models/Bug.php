@@ -9,7 +9,7 @@ class Bug {
     public $description;
     public $createdAt;
     public $closed;
-    public $ndd;
+    public $url;
     public $ip;
     
     function __construct() {
@@ -118,15 +118,15 @@ class Bug {
         return $this;
     }
 
-    public function setNdd($ndd)
+    public function setUrl($url)
     {
-        $this->ndd = $ndd;
+        $this->url = $url;
         return $this;
 
     }
 
-    public function getNdd() {
-        return $this->ndd;
+    public function getUrl() {
+        return $this->url;
     }
 
     public function setIp($ip) {

@@ -10,12 +10,12 @@ class BugManager extends Manager
 
         $dbh = $this->connectDb();  
 
-            $sql = "INSERT INTO bugs (title, description, ndd, ip) VALUES (:title, :description, :ndd, :ip)";
+            $sql = "INSERT INTO bugs (title, description, url, ip) VALUES (:title, :description, :url, :ip)";
             $sth = $dbh->prepare($sql);
             $sth->execute([
                 "title" => $bug->getTitle(),
                 "description" => $bug->getDescription(),
-                "ndd" => $bug->getNdd(),
+                "url" => $bug->getUrl(),
                 "ip" => $bug->getIp()
             ]);        
 
@@ -34,7 +34,7 @@ class BugManager extends Manager
         $bug = new Bug();
         $bug->setId($result["id"]);
         $bug->setTitle($result["title"]);
-        $bug->setNdd($result["ndd"]);
+        $bug->setUrl($result["url"]);
         $bug->setIp($result["ip"]);
         $bug->setDescription($result["description"]);
         $bug->setCreatedAt($result["createdAt"]);
@@ -61,7 +61,7 @@ class BugManager extends Manager
             $bug->setDescription($result["description"]);
             $bug->setCreatedAt($result["createdAt"]);
             $bug->setClosed($result["closed"]);
-            $bug->setNdd($result["ndd"]);
+            $bug->setUrl($result["url"]);
             $bug->setIp($result["ip"]);
             $bugs[] = $bug;
         }
@@ -76,7 +76,7 @@ class BugManager extends Manager
         if ($handle) {
             while (($buffer = fgets($handle, 4096)) !== false) {
                 list($id, $description) = explode(";", $buffer);
-                $bug = new Bug($id, $description, $ndd, $ip);
+                $bug = new Bug($id, $description, $url, $ip);
                 $this->addBug($bug);
         }
         if (!feof($handle)) {
@@ -91,13 +91,13 @@ class BugManager extends Manager
     public function update($bug) {
         //var_dump($bug);
         $dbh = $this->connectDb();
-        $sql = 'UPDATE `bugs` SET title=:title, description=:description, closed=:closed, ndd=:ndd, ip=:ip WHERE id=:id';
+        $sql = 'UPDATE `bugs` SET title=:title, description=:description, closed=:closed, url=:url, ip=:ip WHERE id=:id';
         $sth = $dbh->prepare($sql);
         $sth->execute(['title'=>$bug->getTitle(),
                        'description'=>$bug->getDescription(),
                        'closed'=>$bug->getClosed(),
                        'id'=>$bug->getId(),
-                       'ndd'=>$bug->getNdd(),
+                       'url'=>$bug->getUrl(),
                        'ip'=>$bug->getIp()]);
     }
     
@@ -119,7 +119,7 @@ class BugManager extends Manager
                 $bug->setDescription($result["description"]);
                 $bug->setCreatedAt($result["createdAt"]);
                 $bug->setClosed($result["closed"]);
-                $bug->setNdd($result["ndd"]);
+                $bug->setUrl($result["url"]);
                 $bug->setIp($result["ip"]);
                 $bugs[] = $bug;
             }

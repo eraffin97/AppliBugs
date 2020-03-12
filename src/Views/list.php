@@ -71,7 +71,7 @@
                         <tr>
                             <th>Intitulé</th>
                             <th>Description</th>
-                            <th>Nom de domaine</th>
+                            <th>URL</th>
                             <th>Adresse IP</th>
                             <th>Date</th>
                             <th>Statut</th>
@@ -90,9 +90,9 @@
                                     <a class="trigger2" href="show/<?php echo $bug->getId() ?>"><?php echo $bug->getTitle(); ?></a>
                                 </td>
                                 <td><?php echo $bug->getDescription()?></td>
-                                <td><?php echo $bug->getCreatedAt()?></td>
-                                <td><?php echo $bug->getNdd()?></td>
+                                <td><?php echo $bug->getUrl()?></td>
                                 <td><?php echo $bug->getIp()?></td>
+                                <td><?php echo $bug->getCreatedAt()?></td>
                                 <td class="statut">
                                     <?php
                                     if ($bug->getClosed() == 1) {

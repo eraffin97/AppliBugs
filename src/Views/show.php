@@ -19,6 +19,8 @@
 <h1><?php echo $bug->getTitle()?></h1>
 <p><?php echo $bug->getDescription()?></p>
 <p><?php echo "Statut: ".$bug->getClosed()?></p>
+<p><?php echo "URL: ".$bug->getUrl()?></p>
+<p><?php echo "Adresse IP: ".$bug->getIp()?></p>
 <a href="../liste">Retour à la liste des bugs</a>
 </body>
 

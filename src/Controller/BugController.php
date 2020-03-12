@@ -55,12 +55,15 @@ class bugController {
             $bug = new Bug();
             $bug->setTitle($_POST['intitule']);
             $bug->setDescription($_POST['description']);
-            $bug->setNdd($_POST['ndd']);
+            $bug->setUrl($_POST['url']);
+            $ndd = parse_url($_POST['url'])['host'];
             $client = new Client();
-            $response = $client->request('GET', 'http://ip-api.com/json/'.$_POST['ndd']);
+            $response = $client->request('GET', 'http://ip-api.com/json/'.$ndd);
             $bug->setIp((json_decode($response->getBody()))->query);
             $manager->add($bug);
             header('Location: liste');
+          
+            
         } else {
             $view_to_show = $this->render('src/Views/add', []);
             return $this->send($view_to_show, 200);
