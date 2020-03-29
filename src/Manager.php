@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace BugApp\Models;
+namespace BugApp;
 
 class Manager {
     

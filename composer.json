@@ -1,18 +1,13 @@
 {
-    "name": "eleve/tp1",
+    "name": "elise/appli-bugs",
     "authors": [
         {
             "name": "Elise",
             "email": "eliseraffin97@gmail.com"
         }
     ],
-    "require": {
-        "guzzlehttp/guzzle": "^6.5"
+    "autoload": {
+        "psr-4": {"BugApp\\": "src/"}
     },
-    
-    "autoload":{
-	"psr-4": {
-		"BugApp\\":"src/"
-	}
-    }
+    "require": {"monolog/monolog": "^2.0"}
 }

@@ -1,7 +1,7 @@
 <?php
 namespace BugApp\Models;
 use BugApp\Models\Bug;
-use BugApp\Models\Manager;
+use BugApp\Manager;
 
 class BugManager extends Manager
 {

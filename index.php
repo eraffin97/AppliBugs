@@ -1,6 +1,11 @@
 <?php
-require 'vendor/autoload.php';
-use BugApp\Controller\BugController;
+
+require('params.php');
+require __DIR__ . '/vendor/autoload.php';
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use BugApp\Controller\bugController;
 
 $url = '';
 

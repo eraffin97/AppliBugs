@@ -3,7 +3,6 @@
 namespace BugApp\Controller;
 use BugApp\Models\Bug;
 use BugApp\Models\BugManager;
-use GuzzleHttp\Client;
 
 class bugController {
 
